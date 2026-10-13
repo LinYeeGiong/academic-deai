@@ -1,0 +1,24 @@
+{
+  "name": "academic-deai",
+  "displayName": "Academic De-AI (中英文去AI化)",
+  "version": "1.0.0",
+  "description": "中英文学术写作去AI化与去防御性表述。Strip AI tells and defensive hedging from academic prose in Chinese and English, without touching numbers, formulas, or citations.",
+  "author": {
+    "name": "LinYeeGiong",
+    "url": "https://github.com/LinYeeGiong"
+  },
+  "homepage": "https://github.com/LinYeeGiong/academic-deai",
+  "repository": "https://github.com/LinYeeGiong/academic-deai",
+  "license": "MIT",
+  "keywords": [
+    "academic-writing",
+    "de-ai",
+    "humanize",
+    "hedging",
+    "chinese",
+    "english",
+    "latex",
+    "paper",
+    "thesis"
+  ]
+}

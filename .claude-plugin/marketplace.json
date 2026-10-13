@@ -1,0 +1,15 @@
+{
+  "name": "academic-deai",
+  "description": "学术写作去AI化 skill / Academic de-AI skills",
+  "owner": {
+    "name": "LinYeeGiong",
+    "url": "https://github.com/LinYeeGiong"
+  },
+  "plugins": [
+    {
+      "name": "academic-deai",
+      "source": "./",
+      "description": "中英文学术写作去AI化与去防御性表述，不改数值、公式和引用"
+    }
+  ]
+}
