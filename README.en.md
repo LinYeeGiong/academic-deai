@@ -80,16 +80,32 @@ Follows the open [Agent Skills](https://agentskills.io) standard. Install throug
 A real paragraph from the analysis section of a LaTeX paper, processed in the skill's `rewrite` mode.
 
 ```diff
-- We compare the best single layer, selected by global validation and read with its per-layer linear probe, against this temporal oracle on the UCF-Crime and XD-Violence datasets.
-- All numbers in this analysis are measured with the per-layer probe, which is the diagnostic protocol of this section; the deployed pipeline studied in Section~\ref{sec:experiments} reads the same layers through the temporal scorer and therefore yields different absolute values.
-- As shown in Table~\ref{tab:preliminary_gap}, the temporal oracle consistently outperforms the static best layer, with a notable improvement on XD-Violence.
-- This gap indicates that static single-layer selection may leave substantial headroom when temporal variation in layer preference is not considered.
-- In other words, the performance gap suggests that the limitation lies in the static reading strategy, rather than in the absence of useful anomaly-related features within the model.
-+ We compare the best single layer, selected by global validation, against the temporal oracle on UCF-Crime and XD-Violence, reading both through the same per-layer linear probes.
-+ These probe-based numbers are diagnostic; the deployed pipeline in Section~\ref{sec:experiments} reads the same layers through the temporal scorer, so its absolute values differ.
-+ As shown in Table~\ref{tab:preliminary_gap}, the oracle exceeds the static best layer by 15.93 AUC on UCF-Crime and 23.66 AP on XD-Violence.
+- We compare the best single layer, selected by global validation and read with its
+-   per-layer linear probe, against this temporal oracle on the UCF-Crime and XD-Violence
+-   datasets.
+- All numbers in this analysis are measured with the per-layer probe, which is the
+-   diagnostic protocol of this section; the deployed pipeline studied in
+-   Section~\ref{sec:experiments} reads the same layers through the temporal scorer and
+-   therefore yields different absolute values.
+- As shown in Table~\ref{tab:preliminary_gap}, the temporal oracle consistently
+-   outperforms the static best layer, with a notable improvement on XD-Violence.
+- This gap indicates that static single-layer selection may leave substantial headroom
+-   when temporal variation in layer preference is not considered.
+- In other words, the performance gap suggests that the limitation lies in the static
+-   reading strategy, rather than in the absence of useful anomaly-related features within
+-   the model.
+
++ We compare the best single layer, selected by global validation, against the temporal
++   oracle on UCF-Crime and XD-Violence, reading both through the same per-layer linear
++   probes.
++ These probe-based numbers are diagnostic; the deployed pipeline in
++   Section~\ref{sec:experiments} reads the same layers through the temporal scorer, so its
++   absolute values differ.
++ As shown in Table~\ref{tab:preliminary_gap}, the oracle exceeds the static best layer by
++   15.93 AUC on UCF-Crime and 23.66 AP on XD-Violence.
 + Both read the same frozen features.
-+ The gap therefore suggests that the bottleneck is the static reading strategy, not a lack of anomaly-relevant features in the model.
++ The gap therefore suggests that the bottleneck is the static reading strategy, not a
++   lack of anomaly-relevant features in the model.
 ```
 
 | Metric | Before | After |
