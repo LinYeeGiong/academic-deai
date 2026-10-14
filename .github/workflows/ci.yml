@@ -1,0 +1,118 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Validate skill manifests and scripts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install tools
+        run: pip install pyyaml
+
+      - name: Validate SKILL.md frontmatter
+        run: |
+          python - <<'PY'
+          import yaml
+          from pathlib import Path
+          raw = Path("skills/academic-deai/SKILL.md").read_text(encoding="utf-8")
+          parts = raw.split("---", 2)
+          assert len(parts) >= 3, "missing frontmatter delimiters"
+          fm = yaml.safe_load(parts[1])
+          assert fm.get("name") == "academic-deai", f"name mismatch: {fm.get('name')}"
+          assert fm.get("description"), "description is empty"
+          assert fm.get("license") == "MIT", "license must be MIT"
+          print("SKILL.md frontmatter OK")
+          PY
+
+      - name: Validate plugin manifests
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          pj = json.loads(Path(".claude-plugin/plugin.json").read_text())
+          mj = json.loads(Path(".claude-plugin/marketplace.json").read_text())
+          assert pj["name"] == "academic-deai"
+          assert pj["version"]
+          assert mj["name"] == "academic-deai"
+          assert any(p["name"] == "academic-deai" for p in mj["plugins"])
+          print("Plugin manifests OK")
+          PY
+
+      - name: Validate skill.json
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          sj = json.loads(Path("skill.json").read_text())
+          assert sj["name"] == "academic-deai"
+          skill_dir = Path(sj["skill_path"])
+          for f in sj["installed_files"]:
+              p = skill_dir / f
+              assert p.exists(), f"installed_file not found: {p}"
+          print("skill.json OK")
+          PY
+
+      - name: Check Python syntax (scan.py, diffcheck.py)
+        run: |
+          python -m py_compile skills/academic-deai/scripts/scan.py
+          python -m py_compile skills/academic-deai/scripts/diffcheck.py
+          echo "Python syntax OK"
+
+      - name: Run scanner self-test (expect 54+ hits)
+        run: |
+          python skills/academic-deai/scripts/scan.py \
+            skills/academic-deai/scripts/_selftest.tex \
+            --format text | tee /tmp/scan_out.txt
+          HITS=$(head -1 /tmp/scan_out.txt | grep -oP 'hits=\K\d+')
+          echo "hits=$HITS"
+          [ "$HITS" -ge 50 ] || (echo "ERROR: expected >=50 hits, got $HITS" && exit 1)
+
+      - name: Run diffcheck self-test (identical files -> no issues)
+        run: |
+          python skills/academic-deai/scripts/diffcheck.py \
+            skills/academic-deai/scripts/_selftest.tex \
+            skills/academic-deai/scripts/_selftest.tex \
+            --format text | grep "No protected content changed"
+
+      - name: Check shell syntax
+        run: sh -n install.sh
+
+      - name: Validate plugin (claude CLI)
+        run: |
+          if command -v claude &>/dev/null; then
+            claude plugin validate . 2>&1 | grep -E "Validation passed|passed with warnings"
+          else
+            echo "claude CLI not installed, skipping plugin validate"
+          fi
+
+  windows-install:
+    name: Validate PowerShell installer
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Syntax check install.ps1
+        shell: pwsh
+        run: |
+          $null = [System.Management.Automation.Language.Parser]::ParseFile(
+            "$PWD\install.ps1", [ref]$null, [ref]$null)
+          Write-Host "install.ps1 syntax OK"
+
+      - name: Dry-run install
+        shell: pwsh
+        run: |
+          $t = New-Item -ItemType Directory -Path "$env:TEMP\deai_test_$(New-Guid)" -Force
+          $env:USERPROFILE = $t.FullName
+          & ".\install.ps1" -Agents -List
+          Remove-Item -Recurse -Force $t

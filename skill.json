@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "type": "agent-skill",
+  "name": "academic-deai",
+  "display_name": "Academic De-AI (中英文去AI化)",
+  "description": "中英文学术写作去AI化与去防御性表述。Strip AI tells and defensive hedging from academic prose in Chinese and English, without touching numbers, formulas, or citations.",
+  "license": "MIT",
+  "repository": "https://github.com/LinYeeGiong/academic-deai",
+  "default_ref": "main",
+  "skill_path": "skills/academic-deai",
+  "entrypoint": "skills/academic-deai/SKILL.md",
+  "root_entrypoint": "skills/academic-deai/SKILL.md",
+  "install": {
+    "shell": {
+      "script": "install.sh",
+      "command": "git clone https://github.com/LinYeeGiong/academic-deai.git && cd academic-deai && sh install.sh --agents"
+    },
+    "powershell": {
+      "script": "install.ps1",
+      "command": "git clone https://github.com/LinYeeGiong/academic-deai.git; cd academic-deai; .\\install.ps1 -Agents"
+    },
+    "npx": {
+      "command": "npx skills add LinYeeGiong/academic-deai"
+    },
+    "claude_plugin": {
+      "marketplace_add": "claude plugin marketplace add LinYeeGiong/academic-deai",
+      "install": "claude plugin install academic-deai@academic-deai"
+    }
+  },
+  "tags": [
+    "claude-code",
+    "codex",
+    "agent-skill",
+    "academic-writing",
+    "de-ai",
+    "humanizer",
+    "defensive-hedging",
+    "chinese",
+    "english",
+    "latex"
+  ],
+  "installed_files": [
+    "SKILL.md",
+    "references/zh_patterns.md",
+    "references/en_patterns.md",
+    "references/defensive_hedging.md",
+    "references/proposal_mode.md",
+    "scripts/scan.py",
+    "scripts/diffcheck.py",
+    "scripts/_selftest.tex"
+  ]
+}

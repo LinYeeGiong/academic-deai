@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use or build on this skill, please cite it."
+title: "academic-deai: 中英文学术写作去AI化与去防御性表述"
+abstract: >
+  An Agent Skills-compatible skill that removes AI-generated language patterns
+  and defensive hedging from academic prose in Chinese and English, while
+  preserving evidence-appropriate caution and all numerical, formula, and
+  citation content. Includes a zero-dependency bilingual scanner (scan.py)
+  and a protected-content diff checker (diffcheck.py).
+authors:
+  - name: LinYeeGiong
+    alias: LinYeeGiong
+    website: "https://github.com/LinYeeGiong"
+license: MIT
+repository-code: "https://github.com/LinYeeGiong/academic-deai"
+url: "https://github.com/LinYeeGiong/academic-deai"
+version: "1.1.0"
+date-released: "2026-10-14"
+keywords:
+  - academic writing
+  - de-AI
+  - humanizer
+  - defensive hedging
+  - LaTeX
+  - Chinese
+  - English
+  - agent skills
+  - Claude Code
+  - Codex

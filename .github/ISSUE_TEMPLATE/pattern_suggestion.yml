@@ -1,0 +1,57 @@
+name: 规则建议 / Pattern suggestion
+description: 建议新的 AI 腔模式或防御性表述规则 / Suggest a new AI-tell or hedging pattern
+labels: ["enhancement", "pattern"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢提交规则建议！提供真实的改写前后示例会大大提高采纳率。
+        Thanks for suggesting a pattern! Real before/after examples help a lot.
+  - type: dropdown
+    id: language
+    attributes:
+      label: 语言 / Language
+      options: [Chinese (中文), English, Both]
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: 类别 / Category
+      options:
+        - AI vocabulary / AI 高频词
+        - Boilerplate emphasis / 空泛强调
+        - Significance hype / 拔高夸大
+        - Nominalization / 虚化动词
+        - Formulaic opener/closer / 模板化开头收尾
+        - Defensive hedging / 防御性表述
+        - Over-claiming verb / 动词超过证据
+        - Novelty/priority claim / 首创性声明
+        - Unfavorable result mishandling / 不利结果处理
+        - Other / 其他
+    validations:
+      required: true
+  - type: textarea
+    id: before
+    attributes:
+      label: 改前示例 / Before example
+      description: 粘贴一个或多个真实的原文段落 / Paste one or more real examples from actual papers
+    validations:
+      required: true
+  - type: textarea
+    id: after
+    attributes:
+      label: 改后示例 / After example
+      description: 改写后的版本 / The improved version
+    validations:
+      required: true
+  - type: textarea
+    id: regex
+    attributes:
+      label: 建议的正则（可选） / Suggested regex (optional)
+      description: 如果能用正则匹配，请提供草稿 / Draft regex if the pattern is detectable
+  - type: textarea
+    id: context
+    attributes:
+      label: 背景 / Context
+      description: 什么场景下会出现？有哪些例外需要保留？/ When does this appear? Any exceptions to keep?

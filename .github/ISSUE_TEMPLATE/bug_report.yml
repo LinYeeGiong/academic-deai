@@ -1,0 +1,27 @@
+name: Bug report
+description: Report a false positive, false negative, or scanner error
+labels: ["bug"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened
+      description: What did the scanner flag, miss, or crash on?
+    validations:
+      required: true
+  - type: textarea
+    id: input
+    attributes:
+      label: Minimal input that triggers the issue
+      description: Paste the shortest text that reproduces the problem (remove sensitive content)
+    validations:
+      required: true
+  - type: input
+    id: rule
+    attributes:
+      label: Rule ID (e.g. D1b, A10)
+      description: Leave blank if unknown
+  - type: input
+    id: version
+    attributes:
+      label: scan.py version / git commit

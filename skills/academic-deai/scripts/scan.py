@@ -165,8 +165,23 @@ EN_PATTERNS: list[tuple[str, str, str, str]] = [
      r"|\b(may|might|could) suggest that [^.;]{0,40}\b(may|might|could)\b"
      r"|\bappears? to possibly\b|\bseems? to potentially\b",
      "keep at most one hedge, matched to evidence strength"),
+    ("A10", "Novelty/priority claim",
+     r"\b(to (the best of )?our knowledge|to our best knowledge"
+     r"|for the first time|the first (study|work|method|paper|approach|framework|model|system|analysis) to\b"
+     r"|first (attempt|effort|investigation|characterization|demonstration) (to|of)\b"
+     r"|a? novel (method|approach|framework|model|system|algorithm|architecture|technique)"
+     r"|novel and|uniquely|we (are|were) the first)\b",
+     "state what specifically distinguishes the work; avoid unverifiable priority claims"),
+    ("A11", "Over-claiming verb",
+     r"\b(proves?|prove[sd]|demonstrat(e|es|ed|ing) (that|the)|confirm(s|ed|ing) (that|the)"
+     r"|validat(e|es|ed|ing) (that|the)|establish(es|ed|ing) (that|the))\b",
+     "'shows', 'indicates', 'suggests' matched to evidence strength; 'demonstrates' needs a direct test"),
+    ("B10", "Reflexive rather-than contrast",
+     r"\brather than (?!just|than|having|be\b)[^.;,]{2,50}(?=[,;.]|\b(we|this|the|our|it|these)\b)"
+     r"|\binstead of [^.;]{1,40}\b(we|this|the)\b",
+     "state the positive claim; keep only if X is a real alternative the reader might assume"),
     ("D1b", "Vague hedge",
-     r"\b(to some extent|somewhat|relatively|fairly|rather)\b|\bto a certain degree\b",
+     r"\b(to some extent|somewhat|relatively|fairly)\b|\bto a certain degree\b",
      "quantify or cut; keep only for a real uncertainty, stated once"),
     ("D2", "Pre-emptive defence",
      r"\bwe do not claim\b|\bthis is not to say\b|\bwe make no claim\b"

@@ -74,6 +74,41 @@ Patterns tagged [script] are detected by `scripts/scan.py`; [manual] patterns ne
 
 **Fix**: delete summary sentences that only restate; keep any genuinely new inference.
 
+### A9 Unfavorable result mishandling [manual]
+
+**Signal**: Writing a weaker metric as a verdict on the whole method, or switching the evaluation criterion to avoid the result. Also: burying the favorable metric while headlining the unfavorable one.
+
+**Fix**: state the specific tradeoff — which metric improved, which dropped, by how much. Do not present one weaker metric as a general defect. Do not switch evaluation criteria to avoid the result. Lead with the comparison against the strongest competitor, not the trivial baseline. Prefer ranges ("2–6 points") over single averages unless the averaging method is stated. Attach each number to its method, metric, and baseline.
+
+> Before: *The lower accuracy reveals a fundamental limitation of the proposed method.*
+> After: *The method reduces latency from 100 ms to 60 ms, with 89% accuracy compared with the baseline's 90% (Table 3).*
+
+### A10 Novelty and priority claims [script]
+
+**Signal**: "to the best of our knowledge", "for the first time", "the first study/method/work to…", "a novel method/framework", "we are the first", "uniquely".
+
+**Fix**: state what specifically distinguishes the contribution. Priority claims are often unverifiable and invite reviewer pushback; replace with what the work actually does differently. If the distinction is real, the description makes it clear without the claim.
+
+> Before: *To the best of our knowledge, this is the first work to delve into temporal layer drift in frozen MLLMs.*
+> After: *Prior probing-based methods fix the reading target at dataset level; we show that the locally optimal layer changes within individual events.*
+
+### A11 Over-claiming verbs [script]
+
+**Signal**: "proves", "demonstrates that", "confirms that", "validates that", "establishes that" — used where the evidence is a correlation, a single dataset, or an ablation rather than a controlled experiment ruling out alternatives.
+
+**Fix**: match the verb to the evidence. A direct comparison with a number → "shows", "finds". An ablation → "indicates X contributes to Y". A correlation → "is associated with". A mechanism not directly tested → "suggests", "we hypothesize". Save "demonstrates" for a direct test that rules out the main alternative explanation.
+
+| Evidence | Verb |
+|---|---|
+| Controlled experiment, direct measurement | outperforms, reduces, increases |
+| Ablation showing component contribution | removing X lowers …, indicating X contributes |
+| Correlation / observational | is associated with, is consistent with |
+| Mechanism not directly tested | may, we hypothesize, suggests |
+| Single dataset | holds on this dataset; cross-dataset generalisation not yet tested |
+
+> Before: *These results confirm that temporal routing is necessary for strong performance.*
+> After: *Replacing the adaptive gate with static average fusion drops accuracy by 5.2 AUC (Table 4, row 6), indicating that time-varying fusion contributes to the gain.*
+
 ---
 
 ## B. Sentence patterns
@@ -93,7 +128,38 @@ Patterns tagged [script] are detected by `scripts/scan.py`; [manual] patterns ne
 
 **Fix**: state Y directly. Keep the contrast only if X is an actual position in the literature or earlier text.
 
-### B3 Superficial "-ing" tails [script]
+### B10 Reflexive "rather than" contrast [script]
+
+**Signal**: "rather than [doing/being X], we [do/are Y]" — where X is not a position the reader holds or the literature maintains, but only something the author imagines as a misreading. Also: "instead of X, this paper Y" as a pre-emptive correction of nobody's assumption.
+
+**Fix**: state the positive claim directly. Keep "rather than" only when contrasting with a real alternative that a reader might genuinely assume or that the literature actually advocates.
+
+> Before: *Rather than focusing on a specific architecture, this paper studies the temporal dynamics of layer preference.*
+> After: *This paper studies how the locally optimal reading layer changes over time within an event.*
+
+> Before: *Instead of proposing a new backbone, we introduce a routing module that works on top of any frozen MLLM.*
+> After: *We introduce a lightweight routing module that wraps any frozen MLLM without modifying its weights.*
+
+### B10 Reflexive "rather than" contrast [script]
+
+**Signal**: "rather than [doing/being X], we [do/are Y]" — where X is not a real position the reader holds or the literature maintains, but only something the author imagines as a misreading. Also: "instead of X, this paper Y" as a pre-emptive correction of nobody's assumption.
+
+**Fix**: state the positive claim directly. Keep "rather than" only when contrasting with a real alternative that a reader might genuinely assume or that the literature actually advocates.
+
+> Before: *Rather than focusing on a specific architecture, this paper studies the temporal dynamics of layer preference.*
+> After: *This paper studies how the locally optimal reading layer changes over time within an event.*
+
+> Before: *Instead of proposing a new backbone, we introduce a routing module that works on top of any frozen MLLM.*
+> After: *We introduce a lightweight routing module that wraps any frozen MLLM without modifying its weights.*
+
+### B11 High-impact position violation [manual]
+
+**Signal**: limitations, caveats, and scope disclaimers placed in the abstract, the contribution list, the topic sentence of a paragraph, or the opening line of the conclusion — i.e., in positions where the reader's first impression is formed.
+
+**Fix**: move necessary limitations to the methods, discussion, or limitations section. In high-impact positions, lead with the claim, finding, or contribution. The one exception: a limitation is essential to a specific sentence when omitting it would make that sentence misleading to someone who acts on it alone.
+
+> Before (abstract closer): *Although further experiments are needed to confirm these results, we hope this work provides a modest contribution to the field.*
+> After: *ShiftVAD improves over static single-layer reading by 1.26 AUC on UCF-Crime and 1.92 AP on XD-Violence under a controlled same-backbone comparison.*
 
 **Signal**: a main clause followed by ", highlighting …", ", underscoring …", ", demonstrating …", ", showcasing …", ", reflecting …", ", emphasizing …", ", ensuring …".
 
@@ -170,6 +236,10 @@ Sentences of nearly identical length read as generated. Merge, split, and allow 
 - Keep "we": first-person plural is standard.
 - Keep passive voice where the actor is irrelevant ("Samples were centrifuged at 4 °C").
 - "significant" is correct when a statistical test is reported; "robust" is correct when robustness is tested.
+- "demonstrates" is fine when a direct experimental test rules out the main alternative.
 - Fixed terms stay: "significance level", "robust standard errors", "comprehensive metabolic panel".
 - Semicolons and an occasional genuine three-item list are fine.
+- Keep "rather than" when it contrasts a real alternative — e.g., distinguishing the paper's scope from a related line of work the reader might conflate it with.
+- Keep "novel" when a specific technical distinction is stated in the same sentence.
 - Quoted text, definitions, theorems, and equations stay verbatim.
+- **Examples in the rule catalogs are not facts**: never import wording such as "three institutional settings" or "most relevant variation" into the user's text unless the draft already contains that evidence.
