@@ -49,7 +49,26 @@ claude plugin install academic-deai@academic-deai
 
 更新：`claude plugin marketplace update academic-deai`。
 
-### 任意 agent（一条命令自动探测）
+### npx（需要 Node.js，跨 agent）
+
+使用社区通用的 [`skills`](https://github.com/vercel-labs/skills) CLI，不需要克隆仓库：
+
+```bash
+npx skills add LinYeeGiong/academic-deai            # 交互选择 agent 与安装位置
+npx skills add LinYeeGiong/academic-deai -g -y      # 装到用户级目录，跳过确认
+npx skills add LinYeeGiong/academic-deai -g -a codex -a pi -a claude-code -y
+```
+
+| 选项 | 作用 |
+|---|---|
+| `-g` | 装到用户目录（不加则装到当前项目） |
+| `-a <agent>` | 指定 agent，如 `claude-code`、`codex`、`pi`、`cursor`、`gemini-cli`、`opencode`、`goose` |
+| `--copy` | 复制文件（默认是软链接） |
+| `-y` | 跳过确认 |
+
+更新或卸载：`npx skills update`、`npx skills remove academic-deai`。
+
+### 安装脚本（无需 Node.js，自动探测）
 
 ```bash
 git clone https://github.com/LinYeeGiong/academic-deai.git
@@ -171,7 +190,7 @@ academic-deai/
 
 It **keeps** calibrated hedging that matches the evidence (correlation vs. causation, genuine mechanistic speculation, confidence intervals, the limitations section) and **never** changes numbers, formulas, citation keys, or terminology, and never invents data.
 
-**Install**: Claude Code users run `claude plugin marketplace add LinYeeGiong/academic-deai` then `claude plugin install academic-deai@academic-deai`. For any other agent, clone the repo and run `sh install.sh` (or `.\install.ps1` on Windows), which installs to the cross-agent location `~/.agents/skills/` plus every detected agent. Or copy `skills/academic-deai/` into your agent's skills directory manually (see the table above).
+**Install**: Claude Code users run `claude plugin marketplace add LinYeeGiong/academic-deai` then `claude plugin install academic-deai@academic-deai`. With Node.js, any agent works via `npx skills add LinYeeGiong/academic-deai` (add `-g -a codex -a pi` etc. to target agents). Without Node.js, clone the repo and run `sh install.sh` (or `.\install.ps1` on Windows), which installs to the cross-agent location `~/.agents/skills/` plus every detected agent. Or copy `skills/academic-deai/` into your agent's skills directory manually (see the table above).
 
 This skill improves clarity. It is not a tool for evading AI-use disclosure requirements.
 
