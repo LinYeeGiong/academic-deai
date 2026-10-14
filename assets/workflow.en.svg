@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="340" viewBox="0 0 1280 340" role="img" aria-label="Workflow: input, scan.py, manual audit, rewrite, rescan, report">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1023"/>
+      <stop offset="1" stop-color="#1c1742"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#a78bfa"/>
+      <stop offset="1" stop-color="#22d3ee"/>
+    </linearGradient>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#ffffff" fill-opacity="0.05"/>
+    </pattern>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#818cf8"/>
+    </marker>
+    <style>
+      .sans { font-family: "Inter", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", "Segoe UI", Helvetica, Arial, sans-serif; }
+      .mono { font-family: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace; }
+      .card { fill: #0f172a; fill-opacity: 0.85; stroke: #334155; stroke-width: 1.5; }
+      .hero { fill: #1e1b4b; stroke: url(#accent); stroke-width: 2; }
+      .num  { fill: #a78bfa; font-size: 13px; font-weight: 700; letter-spacing: 1px; }
+      .h    { fill: #f1f5f9; font-size: 19px; font-weight: 700; }
+      .p    { fill: #94a3b8; font-size: 14px; }
+      .flow { stroke: #818cf8; stroke-width: 2; fill: none; }
+      .loop { stroke: #f472b6; stroke-width: 2; fill: none; stroke-dasharray: 6 5; }
+    </style>
+  </defs>
+
+  <rect width="1280" height="340" rx="24" fill="url(#bg)"/>
+  <rect width="1280" height="340" rx="24" fill="url(#dots)"/>
+
+  <!-- 6 stages, 176px wide, 32px gaps, starting x=40 -->
+  <g class="sans">
+    <g transform="translate(40 92)">
+      <rect class="card" width="176" height="132" rx="14"/>
+      <text x="18" y="30" class="num mono">01 INPUT</text>
+      <text x="18" y="62" class="h">Input</text>
+      <text x="18" y="90" class="p">.tex · .md · .txt</text>
+      <text x="18" y="112" class="p">or pasted text</text>
+    </g>
+    <g transform="translate(248 92)">
+      <rect class="card" width="176" height="132" rx="14"/>
+      <text x="18" y="30" class="num mono">02 SCAN</text>
+      <text x="18" y="62" class="h mono" font-size="18">scan.py</text>
+      <text x="18" y="90" class="p">line-numbered hits</text>
+      <text x="18" y="112" class="p">rhythm statistics</text>
+    </g>
+    <g transform="translate(456 92)">
+      <rect class="card" width="176" height="132" rx="14"/>
+      <text x="18" y="30" class="num mono">03 AUDIT</text>
+      <text x="18" y="62" class="h">Manual audit</text>
+      <text x="18" y="90" class="p">structure · evidence</text>
+      <text x="18" y="112" class="p">hedging · rhythm</text>
+    </g>
+    <g transform="translate(664 92)">
+      <rect class="hero" width="176" height="132" rx="14"/>
+      <text x="18" y="30" class="num mono">04 REWRITE</text>
+      <text x="18" y="62" class="h">Rewrite</text>
+      <text x="18" y="90" class="p" fill="#c7d2fe">structure first</text>
+      <text x="18" y="112" class="p" fill="#c7d2fe">then wording</text>
+    </g>
+    <g transform="translate(872 92)">
+      <rect class="card" width="176" height="132" rx="14"/>
+      <text x="18" y="30" class="num mono">05 RESCAN</text>
+      <text x="18" y="62" class="h">Rescan</text>
+      <text x="18" y="90" class="p">hits · length CV</text>
+      <text x="18" y="112" class="p">citation keys checked</text>
+    </g>
+    <g transform="translate(1080 92)">
+      <rect class="card" width="160" height="132" rx="14" stroke="#4ade80" stroke-opacity="0.7"/>
+      <text x="18" y="30" class="num mono" fill="#4ade80">06 REPORT</text>
+      <text x="18" y="62" class="h">Report</text>
+      <text x="18" y="90" class="p">rewrite + log</text>
+      <text x="18" y="112" class="p">kept + to-confirm</text>
+    </g>
+  </g>
+
+  <!-- forward arrows -->
+  <g class="flow" marker-end="url(#arrow)">
+    <line x1="218" y1="158" x2="244" y2="158"/>
+    <line x1="426" y1="158" x2="452" y2="158"/>
+    <line x1="634" y1="158" x2="660" y2="158"/>
+    <line x1="842" y1="158" x2="868" y2="158"/>
+    <line x1="1050" y1="158" x2="1076" y2="158"/>
+  </g>
+
+  <!-- loop back: rescan -> rewrite -->
+  <path class="loop" d="M960 226 C 960 286, 752 286, 752 230" marker-end="url(#arrow)"/>
+  <text x="856" y="300" text-anchor="middle" class="sans" font-size="14" fill="#f9a8d4">not there yet · another pass</text>
+
+  <!-- header -->
+  <text x="40" y="54" class="sans" font-size="15" font-weight="600" fill="#a5b4fc" letter-spacing="2">WORKFLOW</text>
+  <text x="1240" y="54" text-anchor="end" class="sans" font-size="14" fill="#64748b">scan.py matches wording · step 03 catches structure</text>
+</svg>

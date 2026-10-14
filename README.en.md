@@ -216,15 +216,7 @@ De-AI the abstract in draft.md and remove defensive hedging
 
 ## ⚙️ How it works
 
-```mermaid
-flowchart LR
-    A["📄 .tex / .md<br/>or pasted text"] --> B["🔍 scan.py<br/>lexical candidates"]
-    B --> C["🧠 Manual audit<br/>structure · evidence · rhythm"]
-    C --> D["✍️ Rewrite<br/>structure before wording"]
-    D --> E["🔁 Rescan and compare"]
-    E -- not there yet --> D
-    E --> F["📋 Rewrite + change log<br/>kept notes + author questions"]
-```
+<img src="assets/workflow.en.svg" alt="Workflow: input, scan, manual audit, rewrite, rescan, report" width="100%"/>
 
 The scanner only matches words and phrases. Paragraph templating, claim-evidence fit and elegant variation are caught in the manual audit step.
 
@@ -270,7 +262,7 @@ academic-deai/
 │   ├── SKILL.md
 │   ├── references/             # rule catalogs
 │   └── scripts/                # scanner and self-test fixture
-├── assets/banner.svg
+├── assets/                     # banner and workflow figures
 ├── install.sh                  # macOS / Linux / Git Bash
 ├── install.ps1                 # Windows PowerShell
 └── LICENSE

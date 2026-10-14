@@ -216,15 +216,7 @@ De-AI the abstract in draft.md and remove defensive hedging
 
 ## ⚙️ 工作原理
 
-```mermaid
-flowchart LR
-    A["📄 .tex / .md<br/>或粘贴文本"] --> B["🔍 scan.py<br/>词句候选"]
-    B --> C["🧠 人工审计<br/>结构 · 证据 · 节奏"]
-    C --> D["✍️ 改写<br/>先结构后词汇"]
-    D --> E["🔁 复扫对比"]
-    E -- 未达标 --> D
-    E --> F["📋 改写稿 + 修改记录<br/>保留未改 + 需作者确认"]
-```
+<img src="assets/workflow.svg" alt="工作流程：输入、扫描、人工审计、改写、复扫、交付" width="100%"/>
 
 扫描器只能匹配词句，段落模板化、论断与证据是否匹配、同指异名等结构性问题要靠人工审计这一步。
 
@@ -270,7 +262,7 @@ academic-deai/
 │   ├── SKILL.md
 │   ├── references/             # 规则库
 │   └── scripts/                # 扫描器与自测样例
-├── assets/banner.svg
+├── assets/                     # banner and workflow figures
 ├── install.sh                  # macOS / Linux / Git Bash
 ├── install.ps1                 # Windows PowerShell
 └── LICENSE
