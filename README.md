@@ -262,7 +262,7 @@ academic-deai/
 │   ├── SKILL.md
 │   ├── references/             # 规则库
 │   └── scripts/                # 扫描器与自测样例
-├── assets/                     # banner and workflow figures
+├── assets/                     # 横幅与流程图
 ├── install.sh                  # macOS / Linux / Git Bash
 ├── install.ps1                 # Windows PowerShell
 └── LICENSE
