@@ -1,199 +1,276 @@
-# academic-deai
+<div align="center">
 
-中英文学术写作**去AI化**与**去防御性表述** skill。适用于 Claude Code、Codex、pi、Cursor、Gemini CLI、OpenCode、Goose 等支持 [Agent Skills](https://agentskills.io) 标准的 agent。
+<img src="assets/banner.svg" alt="academic-deai：学术写作去AI化与去防御性表述" width="100%"/>
 
-An [Agent Skill](https://agentskills.io) that strips AI tells and defensive hedging from academic prose in **Chinese and English**, without touching numbers, formulas, citations, or terminology. [English summary below](#english).
+<br/>
 
----
+**简体中文** · [English](README.en.md)
 
-## 它做什么
+[![License: MIT](https://img.shields.io/badge/License-MIT-22c55e?style=for-the-badge)](LICENSE)
+[![Agent Skills](https://img.shields.io/badge/Agent_Skills-compatible-8b5cf6?style=for-the-badge)](https://agentskills.io)
+[![Python](https://img.shields.io/badge/Python-3.9+-3776AB?style=for-the-badge&logo=python&logoColor=white)](skills/academic-deai/scripts/scan.py)
+[![Language](https://img.shields.io/badge/%E4%B8%AD%E6%96%87_%7C_English-f97316?style=for-the-badge)](#-规则库)
 
-| 处理对象 | 例子 |
-|---|---|
-| **AI 腔** | 「值得注意的是」「随着……的快速发展」「起到了关键作用」「为……提供了新思路」、四字格堆砌、“不是……而是……”、*delve / underscore / pivotal*、em-dash、句长过于均匀 |
-| **防御性表述** | 「可能在一定程度上」「需要说明的是，本文并非……」「当然这一结论仍需进一步验证」「尽管存在一定局限性，但……」、*We do not claim that…*、*may potentially* |
+![Claude Code](https://img.shields.io/badge/Claude_Code-D97757?style=flat-square)
+![Codex](https://img.shields.io/badge/Codex-10A37F?style=flat-square)
+![pi](https://img.shields.io/badge/pi-111827?style=flat-square)
+![Cursor](https://img.shields.io/badge/Cursor-000000?style=flat-square)
+![Gemini CLI](https://img.shields.io/badge/Gemini_CLI-4285F4?style=flat-square)
+![OpenCode](https://img.shields.io/badge/OpenCode-6366F1?style=flat-square)
+![Goose](https://img.shields.io/badge/Goose-0EA5E9?style=flat-square)
 
-**必须保留的谨慎表述不会被删**：因果与相关的区分、真实的机制推测、置信区间与 p 值、局限性章节本身。把「结果提示 X 可能参与调控」改成「证明 X 参与调控」是制造过度论断，本 skill 明确禁止这种改法。
+[快速开始](#-快速开始) · [效果演示](#-效果演示) · [工作原理](#%EF%B8%8F-工作原理) · [规则库](#-规则库) · [扫描器](#-扫描器)
 
-**硬约束**：不改数值、公式、引用键（`\cite`/`\ref`/`\label`）、术语和 LaTeX 结构；不新增事实；不删减论证内容。原文没有数值支撑的「显著提升」不会被编一个数字填上，而是列入「需作者确认」。
-
-### 改写示例
-
-> **改前**：随着深度学习的快速发展，医学图像分割受到了广泛关注。值得注意的是，本文方法显著提升了分割精度，这一结果可能在一定程度上表明该策略是有效的。综上所述，本文为该领域提供了新思路。
->
-> **改后**：医学图像分割的标注依赖专科医生，单张三维 CT 的人工标注通常需要数小时。本文方法的 Dice 系数比最强基线高 2.4 个百分点（表 2）。
-
-> **Before**: *In recent years, graph learning has attracted increasing attention. It is worth noting that our method significantly outperforms baselines, which may potentially suggest that it could, to some extent, improve robustness.*
->
-> **After**: *Graph neural networks degrade on heterophilous graphs. On four benchmarks, our method exceeds the strongest baseline by 1.8–3.5 F1 points (Table 2).*
-
-（示例中的数值仅作演示；实际改写只使用原文已有的数值。）
+</div>
 
 ---
 
-## 安装
+> 删掉「值得注意的是」「综上所述」「may potentially」这类 AI 腔和自我保护式限定，同时**保留**与证据相称的谨慎表述。
+> 数值、公式、引用键和术语一个字都不动。
 
-### Claude Code（插件市场，推荐）
+## ✨ 特性
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### 🧹 去 AI 腔
+模板化开头和收尾、空泛强调、拔高夸大、虚化动词、四字格堆砌、「不是……而是……」、*delve / underscore / pivotal*、em-dash、句长过于均匀。
+
+</td>
+<td width="50%" valign="top">
+
+### 🛡️ 去防御性表述
+叠加限定（*may potentially*）、无人质疑时的预先辩护、泛泛的「仍需进一步研究」、让步套话、过度谦辞、反复出现的范围声明。
+
+</td>
+</tr>
+<tr>
+<td valign="top">
+
+### ⚖️ 不过度矫正
+因果与相关的区分、真实的机制推测、置信区间与 p 值、局限性章节都会保留。把「提示」改成「证明」属于制造过度论断，规则明确禁止。
+
+</td>
+<td valign="top">
+
+### 🔒 硬约束
+不改数值、公式、`\cite` / `\ref` / `\label` 和 LaTeX 结构；不新增事实；不删减论证。原文没有数值时不编造，列入「需作者确认」。
+
+</td>
+</tr>
+<tr>
+<td valign="top">
+
+### 🔍 零依赖扫描器
+`scan.py` 只依赖 Python 标准库，中英文规则同时运行，自动跳过 LaTeX 注释、数学环境和引用键，输出带行号的候选问题和句长节奏统计。
+
+</td>
+<td valign="top">
+
+### 🔌 一份 skill，多个 agent
+遵循 [Agent Skills](https://agentskills.io) 开放标准。Claude Code 用插件市场安装，其他 agent 用 `npx skills` 或安装脚本。
+
+</td>
+</tr>
+</table>
+
+## 🎬 效果演示
+
+下面是一篇 LaTeX 论文实验分析中的真实段落，按 skill 的 `rewrite` 模式处理。
+
+```diff
+- We compare the best single layer, selected by global validation and read with its per-layer linear probe, against this temporal oracle on the UCF-Crime and XD-Violence datasets.
+- All numbers in this analysis are measured with the per-layer probe, which is the diagnostic protocol of this section; the deployed pipeline studied in Section~\ref{sec:experiments} reads the same layers through the temporal scorer and therefore yields different absolute values.
+- As shown in Table~\ref{tab:preliminary_gap}, the temporal oracle consistently outperforms the static best layer, with a notable improvement on XD-Violence.
+- This gap indicates that static single-layer selection may leave substantial headroom when temporal variation in layer preference is not considered.
+- In other words, the performance gap suggests that the limitation lies in the static reading strategy, rather than in the absence of useful anomaly-related features within the model.
++ We compare the best single layer, selected by global validation, against the temporal oracle on UCF-Crime and XD-Violence, reading both through the same per-layer linear probes.
++ These probe-based numbers are diagnostic; the deployed pipeline in Section~\ref{sec:experiments} reads the same layers through the temporal scorer, so its absolute values differ.
++ As shown in Table~\ref{tab:preliminary_gap}, the oracle exceeds the static best layer by 15.93 AUC on UCF-Crime and 23.66 AP on XD-Violence.
++ Both read the same frozen features.
++ The gap therefore suggests that the bottleneck is the static reading strategy, not a lack of anomaly-relevant features in the model.
+```
+
+| 指标 | 改前 | 改后 |
+|---|:---:|:---:|
+| 词数 | 133 | **97**（−27%） |
+| 限定词 | indicates + may + suggests | **suggests** |
+| 没有数值的程度词 | consistently · notable · substantial | **0** |
+| 超过 30 词的长句 | 1 | **0** |
+| 句长变异系数（越低越均匀） | 0.27 | **0.36** |
+| `\ref` 键 | 2 | **2**（未变） |
+
+<details>
+<summary><b>📋 展开修改记录：改了什么、为什么改</b></summary>
+
+<br/>
+
+| # | 类型 | 改动 | 理由 |
+|---|---|---|---|
+| 1 | 程度词无量化 | *consistently outperforms … notable improvement* → *exceeds … by 15.93 AUC and 23.66 AP* | 同文表格里已有差值，直接写出来 |
+| 2 | 叠加限定 | 删除 *indicates that … may leave substantial headroom* | 上界是实测值，*may* 与 *substantial* 多余；整句与上一句重复 |
+| 3 | 重述套话 | *In other words, …* → *… therefore …* | 换个说法再讲一遍不增加信息；*therefore* 表达真实的推理关系 |
+| 4 | 补全论证 | 新增短句 *Both read the same frozen features.* | 推断依赖的前提原文没写出来；补成短句后句长也有了变化 |
+| 5 | 冗余 | 口径说明从 39 词压缩到 27 词 | 信息完整保留 |
+
+**保留未改**
+
+- **suggests**：oracle 逐帧使用真实标签挑选最优层，上界偏乐观，「瓶颈在读取策略」是推断而不是直接测量，动词强度应停在 *suggests*。
+- **not a lack of …**：「特征本身不行」是审稿人一定会提的另一种解释，前一句给出了排除它的依据，这个对比有实际作用。
+
+**需作者确认**
+
+- 同样的口径说明在实验章节又出现了一次，建议只保留一处。
+
+</details>
+
+## 🚀 快速开始
+
+### 方式一：Claude Code 插件市场
 
 ```bash
 claude plugin marketplace add LinYeeGiong/academic-deai
 claude plugin install academic-deai@academic-deai
 ```
 
-或在 Claude Code 会话内：
+> 在会话中也可以用 `/plugin marketplace add …` 和 `/plugin install …`。更新：`claude plugin marketplace update academic-deai`。
 
-```
-/plugin marketplace add LinYeeGiong/academic-deai
-/plugin install academic-deai@academic-deai
-```
-
-更新：`claude plugin marketplace update academic-deai`。
-
-### npx（需要 Node.js，跨 agent）
-
-使用社区通用的 [`skills`](https://github.com/vercel-labs/skills) CLI，不需要克隆仓库：
+### 方式二：npx（任意 agent，需要 Node.js）
 
 ```bash
-npx skills add LinYeeGiong/academic-deai            # 交互选择 agent 与安装位置
-npx skills add LinYeeGiong/academic-deai -g -y      # 装到用户级目录，跳过确认
+npx skills add LinYeeGiong/academic-deai                                # 交互选择 agent
 npx skills add LinYeeGiong/academic-deai -g -a codex -a pi -a claude-code -y
 ```
 
 | 选项 | 作用 |
 |---|---|
 | `-g` | 装到用户目录（不加则装到当前项目） |
-| `-a <agent>` | 指定 agent，如 `claude-code`、`codex`、`pi`、`cursor`、`gemini-cli`、`opencode`、`goose` |
-| `--copy` | 复制文件（默认是软链接） |
+| `-a <agent>` | 指定 agent：`claude-code`、`codex`、`pi`、`cursor`、`gemini-cli`、`opencode`、`goose` …… |
+| `--copy` | 复制文件（默认软链接） |
 | `-y` | 跳过确认 |
 
 更新或卸载：`npx skills update`、`npx skills remove academic-deai`。
 
-### 安装脚本（无需 Node.js，自动探测）
+### 方式三：安装脚本（不需要 Node.js）
 
 ```bash
-git clone https://github.com/LinYeeGiong/academic-deai.git
-cd academic-deai
-sh install.sh            # macOS / Linux / Git Bash / WSL
+git clone https://github.com/LinYeeGiong/academic-deai.git && cd academic-deai
+sh install.sh          # macOS / Linux / Git Bash / WSL
+.\install.ps1          # Windows PowerShell
 ```
 
-```powershell
-git clone https://github.com/LinYeeGiong/academic-deai.git
-cd academic-deai
-.\install.ps1            # Windows PowerShell
-```
+脚本总会装到跨 agent 通用位置 `~/.agents/skills/`，并为本机已配置的 agent 各装一份。`--list` 只预览，`--link` 用软链接（之后 `git pull` 即可更新），`--project` 装进当前项目。
 
-脚本总会装到跨 agent 通用位置 `~/.agents/skills/`，并为本机已有配置目录的 agent 各装一份。常用选项：
+<details>
+<summary><b>📁 手动安装：各 agent 的 skills 目录</b></summary>
 
-| 选项 | 作用 |
-|---|---|
-| `--list` / `-List` | 只显示将安装的位置，不做改动 |
-| `--link` / `-Link` | 软链接（Windows 为 junction），`git pull` 后自动生效 |
-| `--agents` / `-Agents` | 只装通用位置 `~/.agents/skills/` |
-| `--claude` / `-Claude` | 只装 Claude Code |
-| `--project` / `-Project` | 装到当前目录的 `.agents/skills/`，可提交给团队共享 |
+<br/>
 
-### 手动安装
-
-把 `skills/academic-deai/` 整个目录复制到对应位置即可：
+把 `skills/academic-deai/` 整个目录复制过去即可。
 
 | Agent | 用户级目录 | 项目级目录 | 调用方式 |
 |---|---|---|---|
 | Claude Code | `~/.claude/skills/` | `.claude/skills/` | `/academic-deai` |
-| Codex | `~/.agents/skills/` | `.agents/skills/` | `$academic-deai` 或 `/skills` |
+| Codex | `~/.agents/skills/` | `.agents/skills/` | `$academic-deai` |
 | pi | `~/.agents/skills/` | `.agents/skills/` | `/skill:academic-deai` |
 | Cursor \* | `~/.cursor/skills/` | `.cursor/skills/` | 直接描述需求 |
 | Gemini CLI \* | `~/.gemini/skills/` | `.gemini/skills/` | 直接描述需求 |
 | OpenCode \* | `~/.config/opencode/skills/` | `.opencode/skills/` | 直接描述需求 |
 | Goose \* | `~/.config/goose/skills/` | `.goose/skills/` | 直接描述需求 |
 
-\* 这几个 agent 的目录按其公开约定填写，未在本仓库逐一实测。不确定时优先用 `~/.agents/skills/`，这是 Agent Skills 标准的跨 agent 位置；多数 agent 也会读取它。各 agent 的目录约定可能随版本变化，以其官方文档为准。
+\* 按各 agent 的公开约定填写，未逐一实测。不确定时优先用 `~/.agents/skills/`，这是 Agent Skills 标准的跨 agent 位置。
 
----
+</details>
 
-## 使用
+## 💬 使用
 
-直接描述需求即可，agent 会根据 skill 描述自动加载：
+直接描述需求，agent 会根据 skill 描述自动加载：
 
-```
+```text
 帮我把 paper/main.tex 第 120–260 行去AI化，去掉防御性表述
-```
-
-```
 De-AI the abstract in draft.md and remove defensive hedging
 ```
-
-三种模式：
 
 | 模式 | 行为 |
 |---|---|
 | `audit` | 只列问题清单 |
-| `rewrite`（默认） | 输出改写稿 + 修改记录 + 保留未改说明 + 需作者确认清单，不动源文件 |
-| `apply` | 改写后写回源文件（需明确要求） |
+| `rewrite`（默认） | 输出改写稿、修改记录、保留未改说明和需作者确认清单，不动源文件 |
+| `apply` | 改写后写回源文件，需要明确要求 |
 
-### 扫描脚本（可选）
+## ⚙️ 工作原理
 
-skill 自带一个零依赖的扫描器，用来给出带行号的候选问题。没有 Python 时 agent 会直接按规则库人工审计。
+```mermaid
+flowchart LR
+    A["📄 .tex / .md<br/>或粘贴文本"] --> B["🔍 scan.py<br/>词句候选"]
+    B --> C["🧠 人工审计<br/>结构 · 证据 · 节奏"]
+    C --> D["✍️ 改写<br/>先结构后词汇"]
+    D --> E["🔁 复扫对比"]
+    E -- 未达标 --> D
+    E --> F["📋 改写稿 + 修改记录<br/>保留未改 + 需作者确认"]
+```
+
+扫描器只能匹配词句，段落模板化、论断与证据是否匹配、同指异名等结构性问题要靠人工审计这一步。
+
+## 📚 规则库
+
+| 文件 | 内容 |
+|---|---|
+| [`zh_patterns.md`](skills/academic-deai/references/zh_patterns.md) | 中文 AI 腔：词汇层 9 类、句式层 7 类、段落层 4 类，附改写前后示例 |
+| [`en_patterns.md`](skills/academic-deai/references/en_patterns.md) | English AI tells: vocabulary, sentence patterns, paragraph-level, with before/after examples |
+| [`defensive_hedging.md`](skills/academic-deai/references/defensive_hedging.md) | 防御性表述 9 类、证据强度与措辞对照表、**必须保留的谨慎表述** |
+
+## 🔍 扫描器
 
 ```bash
 python skills/academic-deai/scripts/scan.py draft.tex --format md
 python skills/academic-deai/scripts/scan.py draft.tex --lines 120-260 --format text
 ```
 
-- 需要 Python 3.9+，只用标准库。
-- 中英文规则同时运行，句长统计按语言分别计算。
-- `.tex` 文件自动跳过注释、数学环境、`\cite`/`\ref`/`\label` 键，以及 `equation`/`table`/`figure`/`algorithm` 等环境。
-- 命中项是**候选**，需结合上下文判断：带统计检验的「显著」、表达真实不确定性的「可能」都应保留。
+<details>
+<summary><b>扫描器细节</b></summary>
 
-自测：
+<br/>
 
-```bash
-python skills/academic-deai/scripts/scan.py skills/academic-deai/scripts/_selftest.tex --format text
-```
+- Python 3.9+，只用标准库。
+- 中英文规则同时运行，句长统计按语言分别计算：均值、变异系数（低于 0.35 视为偏均匀）、句首连接词比例。
+- `.tex` 自动跳过注释、`$…$`、`\cite` / `\ref` / `\label` 键，以及 `equation`、`align`、`table`、`figure`、`algorithm` 等环境。
+- 命中项只是**候选**：带统计检验的「显著」、表达真实不确定性的「可能」都应保留。
+- 自测：`python skills/academic-deai/scripts/scan.py skills/academic-deai/scripts/_selftest.tex --format text`
 
----
+</details>
 
-## 仓库结构
+<details>
+<summary><b>🗂️ 仓库结构</b></summary>
 
-```
+<br/>
+
+```text
 academic-deai/
 ├── .claude-plugin/
 │   ├── marketplace.json        # Claude Code 插件市场清单
 │   └── plugin.json             # 插件清单
-├── skills/academic-deai/       # ← skill 本体，所有 agent 共用
+├── skills/academic-deai/       # skill 本体，所有 agent 共用
 │   ├── SKILL.md
-│   ├── references/
-│   │   ├── zh_patterns.md          # 中文 AI 腔模式库
-│   │   ├── en_patterns.md          # English AI-tell catalog
-│   │   └── defensive_hedging.md    # 防御性表述 + 必须保留的谨慎表述
-│   └── scripts/
-│       ├── scan.py                 # 中英双语扫描器
-│       └── _selftest.tex           # 自测样例
-├── install.sh                  # macOS / Linux / Git Bash 安装脚本
-├── install.ps1                 # Windows PowerShell 安装脚本
+│   ├── references/             # 规则库
+│   └── scripts/                # 扫描器与自测样例
+├── assets/banner.svg
+├── install.sh                  # macOS / Linux / Git Bash
+├── install.ps1                 # Windows PowerShell
 └── LICENSE
 ```
 
----
+</details>
 
-## 声明
+## ⚠️ 声明
 
-本 skill 用于提升学术文本的可读性和表达质量，**不用于规避**期刊、学校或资助机构对 AI 使用的披露要求。请遵守所在机构与投稿目标的政策。
+本 skill 用于提升学术文本的可读性和表达质量，**不用于规避**期刊、学校或资助机构对 AI 使用的披露要求。请遵守所在机构和投稿目标的政策。
 
----
+## 📄 License
 
-## English
+[MIT](LICENSE) © LinYeeGiong
 
-**academic-deai** is a portable [Agent Skill](https://agentskills.io) for editing academic prose in Chinese and English. It removes two classes of problems:
-
-- **AI tells**: formulaic openers and closers, boilerplate emphasis (*It is worth noting that*), significance hype (*paves the way*), AI vocabulary (*delve, underscore, pivotal*), light verbs, negative parallelism, superficial *-ing* tails, em-dashes, uniform sentence rhythm.
-- **Defensive hedging**: stacked hedges (*may potentially*), pre-emptive self-defence (*We do not claim that…*), generic disclaimer suffixes (*further research is needed*), concessive boilerplate, excessive modesty.
-
-It **keeps** calibrated hedging that matches the evidence (correlation vs. causation, genuine mechanistic speculation, confidence intervals, the limitations section) and **never** changes numbers, formulas, citation keys, or terminology, and never invents data.
-
-**Install**: Claude Code users run `claude plugin marketplace add LinYeeGiong/academic-deai` then `claude plugin install academic-deai@academic-deai`. With Node.js, any agent works via `npx skills add LinYeeGiong/academic-deai` (add `-g -a codex -a pi` etc. to target agents). Without Node.js, clone the repo and run `sh install.sh` (or `.\install.ps1` on Windows), which installs to the cross-agent location `~/.agents/skills/` plus every detected agent. Or copy `skills/academic-deai/` into your agent's skills directory manually (see the table above).
-
-This skill improves clarity. It is not a tool for evading AI-use disclosure requirements.
-
-## License
-
-[MIT](LICENSE)
+<div align="center">
+<br/>
+<sub>如果它帮你改好了一段论文，欢迎点个 ⭐</sub>
+</div>

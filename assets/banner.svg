@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="400" viewBox="0 0 1280 400" role="img" aria-label="academic-deai: 学术写作去AI化与去防御性表述">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1023"/>
+      <stop offset="0.55" stop-color="#17153a"/>
+      <stop offset="1" stop-color="#2a1d5c"/>
+    </linearGradient>
+    <linearGradient id="title" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#c4b5fd"/>
+      <stop offset="0.5" stop-color="#818cf8"/>
+      <stop offset="1" stop-color="#22d3ee"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#7c3aed" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#7c3aed" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#06b6d4" stop-opacity="0.30"/>
+      <stop offset="1" stop-color="#06b6d4" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#ffffff" fill-opacity="0.06"/>
+    </pattern>
+    <clipPath id="frame"><rect width="1280" height="400" rx="24"/></clipPath>
+    <style>
+      .mono { font-family: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace; }
+      .sans { font-family: "Inter", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", "Segoe UI", Helvetica, Arial, sans-serif; }
+      .cut  { fill: #f87171; text-decoration: line-through; text-decoration-color: #f87171; text-decoration-thickness: 2px; }
+      .keep { fill: #4ade80; }
+      .dim  { fill: #64748b; }
+    </style>
+  </defs>
+
+  <g clip-path="url(#frame)">
+    <rect width="1280" height="400" fill="url(#bg)"/>
+    <rect width="1280" height="400" fill="url(#dots)"/>
+    <circle cx="180" cy="40" r="260" fill="url(#glowA)"/>
+    <circle cx="1120" cy="380" r="300" fill="url(#glowB)"/>
+  </g>
+
+  <!-- left: title block -->
+  <text x="72" y="146" class="mono" font-size="68" font-weight="800" fill="url(#title)" letter-spacing="-1">academic-deai</text>
+  <text x="74" y="204" class="sans" font-size="30" font-weight="700" fill="#e2e8f0">学术写作 · 去AI化 · 去防御性表述</text>
+  <text x="74" y="248" class="sans" font-size="19" fill="#a5b4fc">Strip AI tells and defensive hedging from academic prose.</text>
+  <text x="74" y="276" class="sans" font-size="19" fill="#94a3b8">Numbers, formulas and citations stay untouched.</text>
+
+  <g class="sans" font-size="15" font-weight="600">
+    <rect x="74"  y="308" width="64"  height="32" rx="16" fill="#ffffff" fill-opacity="0.08" stroke="#a78bfa" stroke-opacity="0.6"/>
+    <text x="106" y="329" text-anchor="middle" fill="#ddd6fe">中文</text>
+    <rect x="150" y="308" width="86"  height="32" rx="16" fill="#ffffff" fill-opacity="0.08" stroke="#a78bfa" stroke-opacity="0.6"/>
+    <text x="193" y="329" text-anchor="middle" fill="#ddd6fe">English</text>
+    <rect x="248" y="308" width="76"  height="32" rx="16" fill="#ffffff" fill-opacity="0.08" stroke="#22d3ee" stroke-opacity="0.6"/>
+    <text x="286" y="329" text-anchor="middle" fill="#a5f3fc">LaTeX</text>
+    <rect x="336" y="308" width="128" height="32" rx="16" fill="#ffffff" fill-opacity="0.08" stroke="#22d3ee" stroke-opacity="0.6"/>
+    <text x="400" y="329" text-anchor="middle" fill="#a5f3fc">Agent Skills</text>
+  </g>
+
+  <!-- right: editor card -->
+  <g transform="translate(770 48)">
+    <rect width="440" height="304" rx="16" fill="#050816" fill-opacity="0.72" stroke="#334155"/>
+    <circle cx="24" cy="24" r="6" fill="#f87171"/>
+    <circle cx="44" cy="24" r="6" fill="#fbbf24"/>
+    <circle cx="64" cy="24" r="6" fill="#4ade80"/>
+    <text x="416" y="29" text-anchor="end" class="mono dim" font-size="13">paper.tex</text>
+    <line x1="0" y1="46" x2="440" y2="46" stroke="#1e293b"/>
+
+    <g class="mono" font-size="17">
+      <text x="28" y="82"  class="cut">It is worth noting that,</text>
+      <text x="28" y="118" class="cut">may potentially suggest</text>
+      <text x="28" y="144" class="keep">→ suggests</text>
+      <text x="28" y="182" class="cut sans">值得注意的是，</text>
+      <text x="28" y="218" class="cut">consistently outperforms</text>
+      <text x="28" y="244" class="keep">→ +15.93 AUC (Table 1)</text>
+      <text x="28" y="280" class="cut sans">综上所述，</text>
+    </g>
+  </g>
+</svg>
