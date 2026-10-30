@@ -226,7 +226,7 @@ De-AI the abstract in draft.md and remove defensive hedging
 |---|---|
 | [`zh_patterns.md`](skills/academic-deai/references/zh_patterns.md) | 中文 AI 腔：词汇层 9 类、句式层 7 类、段落层 4 类，附改写前后示例 |
 | [`en_patterns.md`](skills/academic-deai/references/en_patterns.md) | English AI tells: vocabulary, sentence patterns, paragraph-level, with before/after examples |
-| [`defensive_hedging.md`](skills/academic-deai/references/defensive_hedging.md) | 防御性表述 9 类、证据强度与措辞对照表、**必须保留的谨慎表述** |
+| [`defensive_hedging.md`](skills/academic-deai/references/defensive_hedging.md) | 防御性表述 11 类（D1–D11）、证据强度与措辞对照表、**必须保留的谨慎表述** |
 
 ## 🔍 扫描器
 

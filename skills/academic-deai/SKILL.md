@@ -36,7 +36,7 @@ metadata:
 |---|---|
 | `references/zh_patterns.md` | 中文 AI 腔模式库（词汇、句式、段落结构），含 A10 首创性声明、A11 动词超过证据、A12 不利结果处理 |
 | `references/en_patterns.md` | 英文 AI 腔模式库，含 A9 不利结果、A10 首创性声明、A11 过度论断动词、B10 反射式 rather-than、B11 高影响位置违规 |
-| `references/defensive_hedging.md` | 防御性表述六类分类法、动词强度对照表、不利结果处理流程，以及**哪些谨慎表述必须保留** |
+| `references/defensive_hedging.md` | 防御性表述分类法（D1–D11）、动词强度对照表、不利结果处理流程，以及**哪些谨慎表述必须保留**；D10 预先否定未提出的推论；D11 来源式自谦/规避原创声明 |
 | `references/proposal_mode.md` | 基金申请书专用规则（NSFC 面上项目 + NSF/NIH），含愿景与可行性校准 |
 
 ## 工作流

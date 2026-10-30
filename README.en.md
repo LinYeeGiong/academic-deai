@@ -226,7 +226,7 @@ The scanner only matches words and phrases. Paragraph templating, claim-evidence
 |---|---|
 | [`zh_patterns.md`](skills/academic-deai/references/zh_patterns.md) | Chinese AI tells: 9 vocabulary, 7 sentence and 4 paragraph patterns, with before/after examples |
 | [`en_patterns.md`](skills/academic-deai/references/en_patterns.md) | English AI tells: vocabulary, sentence patterns and paragraph-level, with before/after examples |
-| [`defensive_hedging.md`](skills/academic-deai/references/defensive_hedging.md) | 9 defensive-hedging types, an evidence-strength-to-wording table, and **hedges that must be kept** |
+| [`defensive_hedging.md`](skills/academic-deai/references/defensive_hedging.md) | 11 defensive-hedging types (D1–D11), an evidence-strength-to-wording table, and **hedges that must be kept** |
 
 ## 🔍 Scanner
 

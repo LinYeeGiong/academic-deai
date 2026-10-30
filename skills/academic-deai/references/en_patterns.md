@@ -80,8 +80,10 @@ Patterns tagged [script] are detected by `scripts/scan.py`; [manual] patterns ne
 
 **Fix**: state the specific tradeoff — which metric improved, which dropped, by how much. Do not present one weaker metric as a general defect. Do not switch evaluation criteria to avoid the result. Lead with the comparison against the strongest competitor, not the trivial baseline. Prefer ranges ("2–6 points") over single averages unless the averaging method is stated. Attach each number to its method, metric, and baseline.
 
-> Before: *The lower accuracy reveals a fundamental limitation of the proposed method.*
-> After: *The method reduces latency from 100 ms to 60 ms, with 89% accuracy compared with the baseline's 90% (Table 3).*
+> Before (results paragraph): *DistMix achieves higher accuracy than TFMix at every stage from D2 to D10. However, D6 MMD is 90.52%, slightly above DistMix's 90.45%, so the overall advantage cannot be stated as superior to every baseline at every stage. The ten-stage mean of 90.70% and D10 of 89.75% describe the full trajectory and the final cumulative state separately.*
+> After: *At D6, MMD and DistMix reach 90.52% and 90.45%, respectively. DistMix achieves a ten-stage mean accuracy of 90.70% and a final-stage accuracy of 89.75%, demonstrating sustained adaptation across the long time-domain sequence.*
+>
+> Note: the original buries the positive result under a disclaimer ("cannot be stated as"). The fix states the D6 exception as a plain fact in one sentence, then leads the next sentence with the positive result. The exception is not hidden; it is no longer the headline.
 
 ### A10 Novelty and priority claims [script]
 
@@ -106,8 +108,10 @@ Patterns tagged [script] are detected by `scripts/scan.py`; [manual] patterns ne
 | Mechanism not directly tested | may, we hypothesize, suggests |
 | Single dataset | holds on this dataset; cross-dataset generalisation not yet tested |
 
-> Before: *These results confirm that temporal routing is necessary for strong performance.*
-> After: *Replacing the adaptive gate with static average fusion drops accuracy by 5.2 AUC (Table 4, row 6), indicating that time-varying fusion contributes to the gain.*
+> Before (abstract closer): *These results support lightweight fingerprint learning and continual adaptation under the independently evaluated class-incremental and domain-incremental protocols.*
+> After: *These results demonstrate the effectiveness of the proposed methods for lightweight RFF representations, device-class expansion, and sequential acquisition-domain changes.*
+>
+> Note: "support … under the independently evaluated protocols" uses a verb weaker than the evidence (direct numeric comparisons) and appends a scope qualifier already stated in the experiment section. `demonstrate` matches the evidence; the qualifier is removed.
 
 ---
 
@@ -158,8 +162,10 @@ Patterns tagged [script] are detected by `scripts/scan.py`; [manual] patterns ne
 
 **Fix**: move necessary limitations to the methods, discussion, or limitations section. In high-impact positions, lead with the claim, finding, or contribution. The one exception: a limitation is essential to a specific sentence when omitting it would make that sentence misleading to someone who acts on it alone.
 
-> Before (abstract closer): *Although further experiments are needed to confirm these results, we hope this work provides a modest contribution to the field.*
-> After: *ShiftVAD improves over static single-layer reading by 1.26 AUC on UCF-Crime and 1.92 AP on XD-Violence under a controlled same-backbone comparison.*
+> Before (figure caption, last sentence): *The shared architecture has protocol-specific classifiers and objectives.*
+> After: delete the sentence entirely.
+>
+> Note: a figure caption should describe what is shown. "Shared architecture has protocol-specific …" is a pre-emptive defence against a misreading the figure does not invite. The method section already explains the distinction; the caption does not need to repeat it as a caveat.
 
 **Signal**: a main clause followed by ", highlighting …", ", underscoring …", ", demonstrating …", ", showcasing …", ", reflecting …", ", emphasizing …", ", ensuring …".
 

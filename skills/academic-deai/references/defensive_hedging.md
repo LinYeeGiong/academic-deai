@@ -99,6 +99,39 @@
 
 **处理**：只保留真正影响结论成立的那个条件，其余条件在实验设置中已经说明。
 
+### D10 预先否定未提出的推论 [人工]
+
+**识别**：给出结论之后，紧跟一句主动否定一个**没有人提出过的推断**——"不能据此单独分离各模块的贡献""不等同于……""不意味着……""不能据此声称……"。这与 D3（泛泛的"仍需进一步验证"）和 D6（稻草人"不是 A 而是 B"）不同：D10 是在已经说完结论之后，抢先堵住一个假想读者的误读。常见触发位置：结果段末尾、贡献列表末尾、图注末尾。
+
+**处理**：删除。结论只陈述证据能支撑的内容；误读靠论文整体结构和实验设置说明来防止，而不是靠在每句话后面加"但是不能据此……"。
+
+> 改前（结果段末尾）：*该结果支持完整类别更新路径在长类别序列中的综合效果，不能据此单独分离各模块的贡献。*
+> 改后：*上述结果表明，MD-CWA 在长类别序列中具有较好的持续识别性能。*
+
+> Before (results paragraph): *These results support the complete class-update method across the long sequence, but do not isolate each component's contribution.*
+> After: *These results demonstrate the continual recognition performance of MD-CWA across the long class sequence.*
+
+### D11 来源式自谦 / 规避原创声明 [人工]
+
+**识别**：把方法、公式或超参数的正常表述包装成"沿用原材料""原材料给出的""following the original formulation"，好像在为自己的方法做来源免责。这是 AI 写作的典型痕迹：怕被认为"在声称原创"，于是处处标注来源，反而破坏了论文对自身贡献的叙述立场。
+
+- 中文：沿用原材料的……形式；原材料给出的 $x=y$ 均沿用于……；按原设置
+- 英文：following the original … formulation; we retain the reported …; as described in the original work
+
+**处理**：直接陈述方法或参数。若需注明来源，用引用符号，不用"沿用"或"following"。
+
+> 改前：*沿用原材料的时频增强形式，有*
+> 改后：*时频增强过程表示为*
+
+> 改前：*原材料给出的 $t=2$、$\lambda=0.1$ 以及 DistMix 的 $\alpha_{\max}=3.0$、$\alpha_{\min}=0.5$ 均沿用于对应实验。*
+> 改后：*EDSC 扩展系数 $t=2$，对比损失权重 $\lambda=0.1$，DistMix 的映射参数为 $\alpha_{\max}=3.0$、$\alpha_{\min}=0.5$。*
+
+> Before: *Following the original time–frequency augmentation formulation,*
+> After: *The time–frequency augmentation process is expressed as*
+
+> Before: *We retain the reported expansion factor $t=2$, contrastive weight $\lambda=0.1$, and DistMix bounds $\alpha_{\max}=3.0$ and $\alpha_{\min}=0.5$.*
+> After: *The EDSC expansion factor is $t=2$, the contrastive loss weight is $\lambda=0.1$, and the DistMix mapping bounds are $\alpha_{\max}=3.0$ and $\alpha_{\min}=0.5$.*
+
 ---
 
 ## 2. 处理流程
